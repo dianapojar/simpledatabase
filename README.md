@@ -15,9 +15,9 @@ DataBase components:
 
 DataContainer - contains the actual data of the database
 
-    - Data : the actual data of the database, if there are no current transactions open OR the newest transaction, if there are transactions opened
+    * Data : the actual data of the database, if there are no current transactions open OR the newest transaction, if there are transactions opened
 
-    - TransactionManager: maintains a list of the parent transactions and methods to query data from them
+    * TransactionManager: maintains a list of the parent transactions and methods to query data from them
 
 
 The data is stored using Maps, this way we have O(1) runtime for GET, SET, UNSET, and NUMEQUALTO. If we are in a nested transaction

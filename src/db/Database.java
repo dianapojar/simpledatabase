@@ -8,7 +8,7 @@ import db.data.DataContainer;
  * The database wrapper that receives a command and executes it
  */
 public class Database {
-    private final DataContainer dataContainer = new DataContainer();
+    private DataContainer dataContainer = new DataContainer();
     private final ICommandParser parser;
 
     public Database(ICommandParser parser) {

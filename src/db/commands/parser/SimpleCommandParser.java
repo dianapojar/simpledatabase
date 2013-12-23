@@ -11,7 +11,7 @@ public class SimpleCommandParser implements ICommandParser {
         if (rawCommand == null) {
             return new InvalidCommand("The inserted command does not exist!");
         }
-        rawCommand = rawCommand.trim();
+        rawCommand = rawCommand.trim().toLowerCase();
 
         CommandType command;
         String[] args = new String[0];

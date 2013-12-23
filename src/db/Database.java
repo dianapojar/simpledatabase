@@ -6,7 +6,7 @@ import db.data.DatabaseContainer;
 
 
 public class Database {
-    private DatabaseContainer databaseContainer = new DatabaseContainer();
+    private final DatabaseContainer databaseContainer = new DatabaseContainer();
     private final ICommandParser parser;
 
     public Database(ICommandParser parser) {

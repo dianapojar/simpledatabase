@@ -2,7 +2,7 @@ package db.commands.impl;
 
 import db.data.DatabaseContainer;
 
-public class InvalidCommand extends Command {
+public class InvalidCommand implements Command {
     private String errorMessage;
 
     public InvalidCommand(String errorMessage) {

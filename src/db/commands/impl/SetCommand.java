@@ -2,9 +2,8 @@ package db.commands.impl;
 
 import db.data.DatabaseContainer;
 import db.data.TransactionData;
-import db.data.TransactionManager;
 
-public class SetCommand extends Command {
+public class SetCommand implements Command {
     private String name;
     private String value;
 

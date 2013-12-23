@@ -42,12 +42,7 @@ public class DatabaseContainer {
     public void decrementValueCount(String value){
         if (value != null) {
             Integer decrementedOccurrenceCount = getOccurrenceCountFromAllTransaction(value) - 1;
-//            if (decrementedOccurrenceCount == 0) {
-//                data.removeValueCount(value);
-//            } else {
-                //save valueCount for oldValue in current transaction as cache
-                data.setValueCount(value, decrementedOccurrenceCount);
-//            }
+            data.setValueCount(value, decrementedOccurrenceCount);
         }
     }
 

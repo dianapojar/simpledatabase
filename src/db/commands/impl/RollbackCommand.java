@@ -3,7 +3,7 @@ package db.commands.impl;
 import db.data.DatabaseContainer;
 import db.data.TransactionData;
 
-public class RollbackCommand extends Command {
+public class RollbackCommand implements Command {
 
     @Override
     public void execute(DatabaseContainer databaseContainer) {

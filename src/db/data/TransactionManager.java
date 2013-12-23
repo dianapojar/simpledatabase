@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Maintains a list of parent transactions
+ * and implements a set of actions over the past opened transactions
  */
 public class TransactionManager {
     private List<TransactionData> previousTransactions = new ArrayList<TransactionData>();
@@ -28,7 +29,6 @@ public class TransactionManager {
         if (previousTransactions.size() == 0) {
             return null;
         }
-
         TransactionData oldestTransaction = previousTransactions.get(0);
         for (int i = 1; i < previousTransactions.size(); i++) {
             TransactionData transactionToBeMerged = previousTransactions.get(i);

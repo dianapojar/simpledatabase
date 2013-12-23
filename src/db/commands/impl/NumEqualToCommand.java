@@ -4,18 +4,12 @@ import db.data.DatabaseContainer;
 import db.data.TransactionData;
 import db.data.TransactionManager;
 
-public class NumEqualToCommand extends Command {
+public class NumEqualToCommand implements Command {
     private String value;
 
     public NumEqualToCommand(String value) {
         this.value = value;
     }
-
-//    @Override
-//    public void execute(SimpleDBData data) {
-//        System.out.println(data.getValueCountData(value));
-//    }
-
 
     @Override
     public void execute(DatabaseContainer databaseContainer) {

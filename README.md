@@ -30,4 +30,6 @@ A **transaction** contains a Map of key-value, a Map of value-ValueCount and a l
 through all of the transactions (from newest to oldest) until we found the value we were searching for. In this case the the runtime will increase, but
 to minimize this, I've added a "cache" by adding the data that was searched to the newest transaction data.
 
+**Committing transactions** are made by merging the maps from the oldest transactions to the newest, first by adding the new values,
+ deleting the keys from deletedItems and then updating the valueCounts.
 

@@ -1,6 +1,6 @@
 package db.commands.impl;
 
-import db.data.SimpleDBData;
+import db.data.DatabaseContainer;
 
 public class InvalidCommand extends Command {
     private String errorMessage;
@@ -10,7 +10,7 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void execute(SimpleDBData data) {
+    public void execute(DatabaseContainer databaseContainer) {
         System.out.println(errorMessage);
     }
 }

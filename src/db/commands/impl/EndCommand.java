@@ -1,10 +1,10 @@
 package db.commands.impl;
 
-import db.data.SimpleDBData;
+import db.data.DatabaseContainer;
 
 public class EndCommand extends Command {
     @Override
-    public void execute(SimpleDBData data) {
+    public void execute(DatabaseContainer databaseContainer) {
         System.exit(0);
     }
 }

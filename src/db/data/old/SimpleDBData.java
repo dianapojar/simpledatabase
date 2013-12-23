@@ -1,4 +1,4 @@
-package db.data;
+package db.data.old;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class SimpleDBData {
     protected ConcurrentMap<String, String> data = new ConcurrentHashMap<String, String>();
     protected ConcurrentMap<String, Integer> valueCountMap = new ConcurrentHashMap<String, Integer>();
 
-    private List<TransactionData> currentTransactions = new ArrayList<TransactionData>();
+    private List<OLDTransactionData> currentTransactions = new ArrayList<OLDTransactionData>();
     private boolean isCommitOn = false;
 
     private static final String NO_ELEMENT_VALUE = "NULL";
@@ -55,7 +55,7 @@ public class SimpleDBData {
         if (isInTransaction() && !isCommitOn) {
             //daca cheia exista in ierarhia de tranzactii copii nr de aparitii asociate in latet transaction
             for (int i = currentTransactions.size() - 1; i >= 0; i--) {
-                TransactionData transaction = currentTransactions.get(i);
+                OLDTransactionData transaction = currentTransactions.get(i);
                 if (!transaction.getData(key).equals(NO_ELEMENT_VALUE)) {
                     String value = transaction.getData(key);
                     getLatestTransaction().addValueCount(value, -1);
@@ -91,7 +91,7 @@ public class SimpleDBData {
     public Integer getValueCountData(String value) {
         Integer valueCount = getValCount(value);
         if (isInTransaction()) {
-            for (TransactionData transaction : currentTransactions) {
+            for (OLDTransactionData transaction : currentTransactions) {
                     valueCount = valueCount + transaction.getValCount(value);
             }
         }
@@ -114,7 +114,7 @@ public class SimpleDBData {
 
     //TRANSACTION IMPLEMENTATION
     public void beginTransaction() {
-        TransactionData newTransaction = new TransactionData();
+        OLDTransactionData newTransaction = new OLDTransactionData();
         currentTransactions.add(newTransaction);
     }
 
@@ -126,7 +126,7 @@ public class SimpleDBData {
         isCommitOn = true;
         //merging all transactions from older to newer
         for (int i = 0; i < numberOfTransactions; i++) {
-            TransactionData transaction = currentTransactions.get(i);
+            OLDTransactionData transaction = currentTransactions.get(i);
 
             //TODO: maybe create method for merging with dependency injection in transaction data
             //merged new added keys
@@ -139,7 +139,7 @@ public class SimpleDBData {
             }
         }
         //cleanup
-        currentTransactions = new ArrayList<TransactionData>();
+        currentTransactions = new ArrayList<OLDTransactionData>();
         isCommitOn = false;
         return true;
     }
@@ -153,7 +153,7 @@ public class SimpleDBData {
         return true;
     }
 
-    private TransactionData getLatestTransaction() {
+    private OLDTransactionData getLatestTransaction() {
         return currentTransactions.get(currentTransactions.size() - 1);
     }
 

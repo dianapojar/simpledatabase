@@ -2,11 +2,11 @@ package db;
 
 import db.commands.impl.Command;
 import db.commands.parser.ICommandParser;
-import db.data.SimpleDBData;
+import db.data.DatabaseContainer;
 
 
 public class Database {
-    private SimpleDBData data = new SimpleDBData();
+    private DatabaseContainer databaseContainer = new DatabaseContainer();
     private final ICommandParser parser;
 
     public Database(ICommandParser parser) {
@@ -15,6 +15,6 @@ public class Database {
 
     public void executeCommand(String rawCommand) {
         Command command = parser.getCommand(rawCommand);
-        command.execute(data);
+        command.execute(databaseContainer);
     }
 }

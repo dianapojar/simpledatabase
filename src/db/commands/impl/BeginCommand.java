@@ -1,11 +1,11 @@
 package db.commands.impl;
 
-import db.data.SimpleDBData;
-import db.data.TransactionData;
+import db.data.DatabaseContainer;
 
 public class BeginCommand extends Command {
+
     @Override
-    public void execute(SimpleDBData data) {
-        data.beginTransaction();
+    public void execute(DatabaseContainer databaseContainer) {
+        databaseContainer.updateDataToNewTransaction();
     }
 }

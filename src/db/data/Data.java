@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Contains the current data that is being queried and modified by the user.
- * If there are transactions open, this will be the latest opened transaction
+ * If there are transactions open, this will contain the data of the latest opened transaction
  *
  * Choose to use maps for storing the data and valueCountMap, because we have O(1) runtime for get, set, unset, numEqualTo.
+ * The list keysToBeDeleted is used to mark the keys that need to be deleted when committing the transactions
  *
- * keysToBeDeleted is used to mark the keys that need to be deleted when committing the transactions
+ *
+ * In case of a concurrent situation, then the Map should be ConcurrentMaps and the operations should acquire locks on the
+ * keys it modifies, before taking any action.
  */
 public class Data {
     private Map<String, String> data = new HashMap<String, String>();

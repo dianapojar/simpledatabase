@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * Choose to use maps for storing the data and valueCountMap, because we have O(1) runtime for get, set, unset, numEqualTo.
  *
+ * keysToBeDeleted is used to mark the keys that need to be deleted when committing the transactions
  */
 public class Data {
     private Map<String, String> data = new HashMap<String, String>();
@@ -44,6 +45,9 @@ public class Data {
     }
 
     public String getKeyValue(String key) {
+        if (keysToBeDeleted.contains(key)) {
+            return null;
+        }
         return data.get(key);
     }
 

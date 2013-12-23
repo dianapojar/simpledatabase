@@ -2,14 +2,14 @@
 
 Implementation:
 A user writes a command to be executed in the database. An IReader interface is used to offer support for various inputs,
-so a StdInReader was implemented that get the command the user sent. This is consider to be a rawCommand that will need to
+so a StdInReader was implemented that get the command the user wrote. This is consider to be a rawCommand that will need to
 be parsed later on.
 
 The rawCommand is sent to the Database. The database has his own parser component that returns a Command based on the
 user input. After the Command is created, the database will execute it.
 
 DataBase components:
-DataContainer - contains the actual data of the database and implements methods for retrieving data
+DataContainer - contains the actual data of the database and implements methods for retrieving/updating data
     - Data : the actual data of the database, if there are no current transactions open OR the newest transaction, if there are transactions opened
     - TransactionManager: maintains a list of the parent transactions and methods to query data from them
 

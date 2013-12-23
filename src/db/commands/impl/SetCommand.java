@@ -17,14 +17,14 @@ public class SetCommand implements Command {
         Data currentData = container.getData();
 
         //decrement oldValue count
-        String oldValue = container.getValueForKeyFromAllTransaction(name);
-        if (!value.equals(oldValue)) {
+        if (!currentData.isKeyDeleted(name)) {
+            String oldValue = container.getValueForKeyFromAllTransaction(name);
             container.decrementValueCount(oldValue);
-
-            //set new value and update value count
-            Integer occurrences = container.getOccurrenceCountFromAllTransaction(value);
-            currentData.setValueCount(value, occurrences + 1);
         }
+        //set new value and update value count
+        Integer occurrences = container.getOccurrenceCountFromAllTransaction(value);
+        currentData.setValueCount(value, occurrences + 1);
+
         currentData.setData(name, value);
     }
 }

@@ -20,8 +20,9 @@ public class NumEqualToCommand implements Command {
         Integer currentCount = currentData.getValueCount(value);
         if (currentCount == null) {
             currentCount = transactionManager.getOccurrencesForValue(value);
+            //cache count value in current transaction
+            currentData.setValueCount(value, currentCount);
         }
-
         System.out.println(currentCount);
     }
 }

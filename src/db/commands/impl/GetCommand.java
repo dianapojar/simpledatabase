@@ -23,15 +23,17 @@ public class GetCommand implements Command {
             System.out.println(VALUE_NOT_FOUND);
         } else {
             //find key in most recent transaction
-            String oldValue = data.getKeyValue(name);
-            if (oldValue == null) {
-                oldValue = transactionManager.getMostRecentValueForKey(name);
+            String value = data.getKeyValue(name);
+            if (value == null) {
+                value = transactionManager.getMostRecentValueForKey(name);
             }
 
-            if (oldValue == null) {
+            if (value == null) {
                 System.out.println(VALUE_NOT_FOUND);
             } else {
-                System.out.println(oldValue);
+                System.out.println(value);
+                //cache found value
+                data.setData(name, value);
             }
         }
     }

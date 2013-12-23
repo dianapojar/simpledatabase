@@ -3,6 +3,9 @@ package db.commands.parser;
 import db.commands.CommandType;
 import db.commands.impl.*;
 
+/**
+ * Parses the user input and return a Command that will be executed by the database.
+ */
 public class SimpleCommandParser implements ICommandParser {
     public static final String SEPARATOR = " ";
 
@@ -15,6 +18,7 @@ public class SimpleCommandParser implements ICommandParser {
 
         CommandType command;
         String[] args = new String[0];
+        //parse input to get type and arguments
         if (rawCommand.contains(SEPARATOR)) {
             Integer spacePos = rawCommand.indexOf(SEPARATOR);
             String type = rawCommand.substring(0, spacePos);
@@ -25,6 +29,7 @@ public class SimpleCommandParser implements ICommandParser {
             command = CommandType.getCommandFromType(rawCommand);
         }
 
+        //create command
         if (command != null) {
             switch (command) {
                 case END:

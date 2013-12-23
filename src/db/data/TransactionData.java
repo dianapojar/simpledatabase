@@ -21,6 +21,10 @@ public class TransactionData {
         data.put(key, value);
     }
 
+    public ConcurrentMap<String, String> getData() {
+        return data;
+    }
+
     public boolean isExistingKey(String key) {
         return data.containsKey(key);
     }
@@ -30,10 +34,7 @@ public class TransactionData {
     }
 
     public boolean isKeyDeleted(String key) {
-        if (keysToBeDeleted.contains(key)) {
-            return true;
-        }
-        return false;
+        return keysToBeDeleted.contains(key);
     }
 
     public String getKeyValue(String key) {
@@ -42,7 +43,7 @@ public class TransactionData {
 
     public Integer getValueCount(String value) {
         if (!valueCountMap.containsKey(value)) {
-            return 0;
+            return null;
         }
         return valueCountMap.get(value);
     }
@@ -56,7 +57,36 @@ public class TransactionData {
         data.remove(key);
     }
 
-//    public void incrementValueCount(String value) {
+    public void removeValueCount(String value) {
+        valueCountMap.remove(value);
+    }
+
+    public void mergeTransaction(TransactionData transaction) {
+        //merge keys
+        for (String key : transaction.getData().keySet()) {
+            this.data.put(key, transaction.getKeyValue(key));
+        }
+
+        //delete deleted keys
+        for (String deletedKey : transaction.getKeysToBeDeleted()) {
+            this.data.remove(deletedKey);
+        }
+
+        //update valueCounts
+        for (String value : transaction.getValueCountMap().keySet()) {
+            this.valueCountMap.put(value, transaction.getValueCount(value));
+        }
+    }
+
+    public List<String> getKeysToBeDeleted() {
+        return keysToBeDeleted;
+    }
+
+    public ConcurrentMap<String, Integer> getValueCountMap() {
+        return valueCountMap;
+    }
+
+    //    public void incrementValueCount(String value) {
 //        Integer count = 0;
 //        if (valueCountMap.containsKey(value)) {
 //            count = valueCountMap.get(value) + 1;

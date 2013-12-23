@@ -6,7 +6,7 @@ import db.data.TransactionData;
 public class CommitCommand extends Command {
     @Override
     public void execute(DatabaseContainer databaseContainer) {
-        Boolean isCommitOk =   databaseContainer.getTransactionManager().commit();
+        Boolean isCommitOk = databaseContainer.commit();
         if (!isCommitOk) {
             System.out.println("NO TRANSACTION");
         }

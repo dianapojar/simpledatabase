@@ -23,7 +23,7 @@ public class NumEqualToCommand extends Command {
         TransactionManager transactionManager = databaseContainer.getTransactionManager();
 
         Integer currentCount = currentData.getValueCount(value);
-        if (currentCount == 0) {
+        if (currentCount == null) {
             currentCount = transactionManager.getOccurrencesForValue(value);
         }
 

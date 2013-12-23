@@ -16,19 +16,26 @@ public class UnsetCommand extends Command {
         TransactionData currentData = databaseContainer.getData();
         TransactionManager transactionManager = databaseContainer.getTransactionManager();
 
-        String keyValue = currentData.getKeyValue(name);
-        if (keyValue == null) {
-            //get value count from previous transactions
-            String previousValue =  transactionManager.getMostRecentValueForKey(name);
-            if (previousValue != null) {
-                //decrement count
-                Integer valueCount = currentData.getValueCount(previousValue);
-                currentData.setValueCount(previousValue, valueCount - 1);
-            }
-        }
+        //decrement old value count
+        String oldValue = databaseContainer.getValueForKeyFromAllTransaction(name);
+        databaseContainer.decrementValueCount(oldValue);
+//        if (keyValue == null) {
+//            //get value count from previous transactions
+//            String previousValue =  transactionManager.getMostRecentValueForKey(name);
+//            if (previousValue != null) {
+//                //decrement count
+//                Integer valueCount = currentData.getValueCount(previousValue);
+//                if (valueCount == 0) {
+//                    valueCount = transactionManager.getOccurrencesForValue(previousValue);
+//                }
+//                if (valueCount - 1 == 0) {
+//                    //remove from count list
+//                }
+//                currentData.setValueCount(previousValue, valueCount - 1);
+//            }
+//        }
 
         //delete and mark key as deleted
-        //TODO: update get to check if key is deleted
         currentData.unsetKey(name);
     }
 }

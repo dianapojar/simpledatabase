@@ -24,11 +24,18 @@ public class TransactionManager {
         return previousTransactions.remove(previousTransactions.size() - 1);
     }
 
-    public boolean commit() {
+    public TransactionData commit(TransactionData lastTransaction) {
         if (previousTransactions.size() == 0) {
-            return false;
+            return null;
         }
-        return true;
+
+        TransactionData oldestTransaction = previousTransactions.get(0);
+        for (int i = 1; i < previousTransactions.size(); i++) {
+            TransactionData transactionToBeMerged = previousTransactions.get(i);
+            oldestTransaction.mergeTransaction(transactionToBeMerged);
+        }
+        oldestTransaction.mergeTransaction(lastTransaction);
+        return oldestTransaction;
     }
 
     public String getMostRecentValueForKey(String key) {
@@ -50,10 +57,14 @@ public class TransactionManager {
         for (int i = previousTransactions.size() - 1; i >= 0 ; i--) {
             TransactionData transaction = previousTransactions.get(i);
             Integer valueCount = transaction.getValueCount(value);
-            if (valueCount > 0) {
+            if (valueCount != null) {
                 return valueCount;
             }
         }
         return 0;
+    }
+
+    public void cleanOldTransactions() {
+        previousTransactions = new ArrayList<TransactionData>();
     }
 }

@@ -25,6 +25,11 @@ public class TransactionManager {
         return previousTransactions.remove(previousTransactions.size() - 1);
     }
 
+    /**
+     * The transactions are commit one by one, from the oldest to the newest to create a single Data object
+     * @param lastTransaction
+     * @return
+     */
     public Data commit(Data lastTransaction) {
         if (previousTransactions.size() == 0) {
             return null;
@@ -38,6 +43,11 @@ public class TransactionManager {
         return oldestTransaction;
     }
 
+    /**
+     * Iterates trough the transactions from newest to oldest until if finds the key. If it's not present the will return null.
+     * @param key
+     * @return
+     */
     public String getMostRecentValueForKey(String key) {
         for (int i = previousTransactions.size() - 1; i >= 0 ; i--) {
             Data transaction = previousTransactions.get(i);
@@ -53,6 +63,11 @@ public class TransactionManager {
         return null;
     }
 
+    /**
+     * Iterates trough all the transactions from newest to oldest to find the occurrences of the value.
+     * @param value
+     * @return
+     */
     public Integer getOccurrencesForValue(String value) {
         for (int i = previousTransactions.size() - 1; i >= 0 ; i--) {
             Data transaction = previousTransactions.get(i);
@@ -64,6 +79,9 @@ public class TransactionManager {
         return 0;
     }
 
+    /**
+     * Method used to reset the current opened transactions. Used after commit
+     */
     public void cleanOldTransactions() {
         previousTransactions = new ArrayList<Data>();
     }

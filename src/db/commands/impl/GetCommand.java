@@ -19,8 +19,10 @@ public class GetCommand implements Command {
         TransactionManager transactionManager = container.getTransactionManager();
 
         if (data.isKeyDeleted(name)) {
+            //key is marked as deleted in a transaction
             System.out.println(VALUE_NOT_FOUND);
         } else {
+            //find key in most recent transaction
             String oldValue = data.getKeyValue(name);
             if (oldValue == null) {
                 oldValue = transactionManager.getMostRecentValueForKey(name);

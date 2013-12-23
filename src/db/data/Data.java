@@ -33,14 +33,6 @@ public class Data {
         return data;
     }
 
-    public boolean isExistingKey(String key) {
-        return data.containsKey(key);
-    }
-
-    public boolean isExistingValueCountKey(String value) {
-        return valueCountMap.containsKey(value);
-    }
-
     public boolean isKeyDeleted(String key) {
         return keysToBeDeleted.contains(key);
     }

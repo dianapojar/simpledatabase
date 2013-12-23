@@ -18,7 +18,6 @@ public class SetCommand implements Command {
         Data currentData = container.getData();
         TransactionManager transactionManager = container.getTransactionManager();
 
-        //decrement oldValue count
         if (!currentData.isKeyDeleted(name)) {
             //get oldValue
             String oldValue = currentData.getKeyValue(name);

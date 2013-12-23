@@ -16,6 +16,7 @@ public class NumEqualToCommand implements Command {
         Data currentData = dataContainer.getData();
         TransactionManager transactionManager = dataContainer.getTransactionManager();
 
+        //get value count
         Integer currentCount = currentData.getValueCount(value);
         if (currentCount == null) {
             currentCount = transactionManager.getOccurrencesForValue(value);

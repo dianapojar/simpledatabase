@@ -16,7 +16,7 @@ public class UnsetCommand implements Command {
         Data currentData = dataContainer.getData();
         TransactionManager transactionManager = dataContainer.getTransactionManager();
 
-        //decrement old value count
+        //get old value and decrement it's count
         String oldValue = currentData.getKeyValue(name);
         if (oldValue == null) {
             oldValue = transactionManager.getMostRecentValueForKey(name);

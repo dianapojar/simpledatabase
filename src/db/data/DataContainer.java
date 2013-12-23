@@ -1,18 +1,26 @@
 package db.data;
 
-public class DatabaseContainer {
+/**
+ * Container that stores the past transaction (TransactionManager) and the current used data (Data)
+ *
+ * It contains some methods used for getting values from the past transaction if they are not present in the current data.
+ * This is done by iterating back through the past transaction (from newest to oldest) and the first value that is found is returned.
+ *          After the value is retrieved is saved in the current used data (as cache - the next queries will not need to interate back though all the
+ *          old transaction)
+ */
+public class DataContainer {
     private TransactionManager transactionManager = new TransactionManager();
-    private TransactionData data = new TransactionData();
+    private Data data = new Data();
 
     public TransactionManager getTransactionManager() {
         return transactionManager;
     }
 
-    public TransactionData getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(TransactionData data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
@@ -21,7 +29,7 @@ public class DatabaseContainer {
     }
 
     public boolean commit() {
-        TransactionData mergedTransaction = transactionManager.commit(data);
+        Data mergedTransaction = transactionManager.commit(data);
         if (mergedTransaction == null) {
             return false;
         } else {

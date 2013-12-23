@@ -1,16 +1,22 @@
 package db.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * represent the current transaction that is queried
+ * Contains the current data that is being queried and modified by the user.
+ * If there are transactions open, this will be the latest opened transaction
+ *
+ * Choose to use maps for storing the data and valueCountMap, because we have O(1) runtime for get, set, unset, numEqualTo.
+ *
  */
-public class TransactionData {
-    private ConcurrentMap<String, String> data = new ConcurrentHashMap<String, String>();
-    private ConcurrentMap<String, Integer> valueCountMap = new ConcurrentHashMap<String, Integer>();
+public class Data {
+    private Map<String, String> data = new HashMap<String, String>();
+    private Map<String, Integer> valueCountMap = new HashMap<String, Integer>();
 
     private List<String> keysToBeDeleted = new ArrayList<String>();
 
@@ -21,7 +27,7 @@ public class TransactionData {
         data.put(key, value);
     }
 
-    public ConcurrentMap<String, String> getData() {
+    public Map<String, String> getData() {
         return data;
     }
 
@@ -57,11 +63,7 @@ public class TransactionData {
         data.remove(key);
     }
 
-    public void removeValueCount(String value) {
-        valueCountMap.remove(value);
-    }
-
-    public void mergeTransaction(TransactionData transaction) {
+    public void mergeTransaction(Data transaction) {
         //merge keys
         for (String key : transaction.getData().keySet()) {
             this.data.put(key, transaction.getKeyValue(key));
@@ -82,23 +84,7 @@ public class TransactionData {
         return keysToBeDeleted;
     }
 
-    public ConcurrentMap<String, Integer> getValueCountMap() {
+    public Map<String, Integer> getValueCountMap() {
         return valueCountMap;
     }
-
-    //    public void incrementValueCount(String value) {
-//        Integer count = 0;
-//        if (valueCountMap.containsKey(value)) {
-//            count = valueCountMap.get(value) + 1;
-//        }
-//        valueCountMap.put(value, count);
-//    }
-//
-//    public void decrementValueCount(String value) {
-//        Integer count = 0;
-//        if (valueCountMap.containsKey(value)) {
-//            count = valueCountMap.get(value) - 1;
-//        }
-//        valueCountMap.put(value, count);
-//    }
 }

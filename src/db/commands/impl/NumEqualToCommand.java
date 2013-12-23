@@ -1,7 +1,7 @@
 package db.commands.impl;
 
-import db.data.DatabaseContainer;
-import db.data.TransactionData;
+import db.data.Data;
+import db.data.DataContainer;
 import db.data.TransactionManager;
 
 public class NumEqualToCommand implements Command {
@@ -12,9 +12,9 @@ public class NumEqualToCommand implements Command {
     }
 
     @Override
-    public void execute(DatabaseContainer databaseContainer) {
-        TransactionData currentData = databaseContainer.getData();
-        TransactionManager transactionManager = databaseContainer.getTransactionManager();
+    public void execute(DataContainer dataContainer) {
+        Data currentData = dataContainer.getData();
+        TransactionManager transactionManager = dataContainer.getTransactionManager();
 
         Integer currentCount = currentData.getValueCount(value);
         if (currentCount == null) {

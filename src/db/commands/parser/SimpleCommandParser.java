@@ -8,6 +8,9 @@ public class SimpleCommandParser implements ICommandParser {
 
     @Override
     public Command getCommand(String rawCommand) {
+        if (rawCommand == null) {
+            return new InvalidCommand("The inserted command does not exist!");
+        }
         rawCommand = rawCommand.trim();
 
         CommandType command;

@@ -1,17 +1,17 @@
 package db.commands.impl;
 
-import db.data.DatabaseContainer;
-import db.data.TransactionData;
+import db.data.Data;
+import db.data.DataContainer;
 
 public class RollbackCommand implements Command {
 
     @Override
-    public void execute(DatabaseContainer databaseContainer) {
-        TransactionData data =  databaseContainer.getTransactionManager().rollback();
+    public void execute(DataContainer dataContainer) {
+        Data data =  dataContainer.getTransactionManager().rollback();
         if (data == null) {
             System.out.println("NO TRANSACTION");
         } else {
-            databaseContainer.setData(data);
+            dataContainer.setData(data);
         }
     }
 }

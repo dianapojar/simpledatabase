@@ -1,8 +1,7 @@
 package db.commands.impl;
 
-import db.data.DatabaseContainer;
-import db.data.TransactionData;
-import db.data.TransactionManager;
+import db.data.Data;
+import db.data.DataContainer;
 
 public class UnsetCommand implements Command {
     private String name;
@@ -12,12 +11,12 @@ public class UnsetCommand implements Command {
     }
 
     @Override
-    public void execute(DatabaseContainer databaseContainer) {
-        TransactionData currentData = databaseContainer.getData();
+    public void execute(DataContainer dataContainer) {
+        Data currentData = dataContainer.getData();
 
         //decrement old value count
-        String oldValue = databaseContainer.getValueForKeyFromAllTransaction(name);
-        databaseContainer.decrementValueCount(oldValue);
+        String oldValue = dataContainer.getValueForKeyFromAllTransaction(name);
+        dataContainer.decrementValueCount(oldValue);
 
         //delete and mark key as deleted
         currentData.unsetKey(name);

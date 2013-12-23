@@ -1,7 +1,7 @@
 package db.commands.impl;
 
-import db.data.DatabaseContainer;
-import db.data.TransactionData;
+import db.data.Data;
+import db.data.DataContainer;
 
 public class SetCommand implements Command {
     private String name;
@@ -13,8 +13,8 @@ public class SetCommand implements Command {
     }
 
     @Override
-    public void execute(DatabaseContainer container) {
-        TransactionData currentData = container.getData();
+    public void execute(DataContainer container) {
+        Data currentData = container.getData();
 
         //decrement oldValue count
         String oldValue = container.getValueForKeyFromAllTransaction(name);

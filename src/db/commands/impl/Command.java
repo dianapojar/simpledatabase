@@ -1,8 +1,7 @@
 package db.commands.impl;
 
-import db.commands.CommandType;
-import db.data.DatabaseContainer;
+import db.data.DataContainer;
 
 public interface Command {
-    public abstract void execute(DatabaseContainer databaseContainer);
+    public abstract void execute(DataContainer dataContainer);
 }

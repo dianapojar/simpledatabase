@@ -2,11 +2,13 @@ package db;
 
 import db.commands.impl.Command;
 import db.commands.parser.ICommandParser;
-import db.data.DatabaseContainer;
+import db.data.DataContainer;
 
-
+/**
+ * The database wrapper that receives a command and executes it
+ */
 public class Database {
-    private final DatabaseContainer databaseContainer = new DatabaseContainer();
+    private final DataContainer dataContainer = new DataContainer();
     private final ICommandParser parser;
 
     public Database(ICommandParser parser) {
@@ -15,6 +17,6 @@ public class Database {
 
     public void executeCommand(String rawCommand) {
         Command command = parser.getCommand(rawCommand);
-        command.execute(databaseContainer);
+        command.execute(dataContainer);
     }
 }

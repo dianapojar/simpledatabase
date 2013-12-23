@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Maintains a list of parent transactions
- * and implements a set of actions over the past opened transactions
+ * Maintains a list of parent transactions and implements a set of actions over the past opened transactions
+ *
  */
 public class TransactionManager {
-    private List<TransactionData> previousTransactions = new ArrayList<TransactionData>();
+    private List<Data> previousTransactions = new ArrayList<Data>();
 
     public TransactionManager() {
     }
 
-    public TransactionData begin(TransactionData oldTransaction) {
+    public Data begin(Data oldTransaction) {
         previousTransactions.add(oldTransaction);
-        return new TransactionData();
+        return new Data();
     }
 
-    public TransactionData rollback() {
+    public Data rollback() {
         if (previousTransactions.size() == 0) {
             return null;
         }
         return previousTransactions.remove(previousTransactions.size() - 1);
     }
 
-    public TransactionData commit(TransactionData lastTransaction) {
+    public Data commit(Data lastTransaction) {
         if (previousTransactions.size() == 0) {
             return null;
         }
-        TransactionData oldestTransaction = previousTransactions.get(0);
+        Data oldestTransaction = previousTransactions.get(0);
         for (int i = 1; i < previousTransactions.size(); i++) {
-            TransactionData transactionToBeMerged = previousTransactions.get(i);
+            Data transactionToBeMerged = previousTransactions.get(i);
             oldestTransaction.mergeTransaction(transactionToBeMerged);
         }
         oldestTransaction.mergeTransaction(lastTransaction);
@@ -40,7 +40,7 @@ public class TransactionManager {
 
     public String getMostRecentValueForKey(String key) {
         for (int i = previousTransactions.size() - 1; i >= 0 ; i--) {
-            TransactionData transaction = previousTransactions.get(i);
+            Data transaction = previousTransactions.get(i);
             if (transaction.isKeyDeleted(key)) {
                 return null;
             } else {
@@ -55,7 +55,7 @@ public class TransactionManager {
 
     public Integer getOccurrencesForValue(String value) {
         for (int i = previousTransactions.size() - 1; i >= 0 ; i--) {
-            TransactionData transaction = previousTransactions.get(i);
+            Data transaction = previousTransactions.get(i);
             Integer valueCount = transaction.getValueCount(value);
             if (valueCount != null) {
                 return valueCount;
@@ -65,6 +65,6 @@ public class TransactionManager {
     }
 
     public void cleanOldTransactions() {
-        previousTransactions = new ArrayList<TransactionData>();
+        previousTransactions = new ArrayList<Data>();
     }
 }

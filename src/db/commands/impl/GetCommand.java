@@ -2,6 +2,7 @@ package db.commands.impl;
 
 import db.data.Data;
 import db.data.DataContainer;
+import db.data.TransactionManager;
 
 public class GetCommand implements Command {
     private String name;
@@ -14,12 +15,16 @@ public class GetCommand implements Command {
 
     @Override
     public void execute(DataContainer container) {
-        Data currentData = container.getData();
+        Data data = container.getData();
+        TransactionManager transactionManager = container.getTransactionManager();
 
-        if (currentData.isKeyDeleted(name)) {
+        if (data.isKeyDeleted(name)) {
             System.out.println(VALUE_NOT_FOUND);
         } else {
-            String oldValue = container.getValueForKeyFromAllTransaction(name);
+            String oldValue = data.getKeyValue(name);
+            if (oldValue == null) {
+                oldValue = transactionManager.getMostRecentValueForKey(name);
+            }
 
             if (oldValue == null) {
                 System.out.println(VALUE_NOT_FOUND);
@@ -28,4 +33,5 @@ public class GetCommand implements Command {
             }
         }
     }
+
 }

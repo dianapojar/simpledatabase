@@ -12,8 +12,11 @@ The rawCommand is sent to the Database. The database has his own parser componen
 user input. After the Command is created, the database will execute it.
 
 DataBase components:
+
 DataContainer - contains the actual data of the database
+
     - Data : the actual data of the database, if there are no current transactions open OR the newest transaction, if there are transactions opened
+
     - TransactionManager: maintains a list of the parent transactions and methods to query data from them
 
 

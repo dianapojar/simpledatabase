@@ -16,6 +16,7 @@ public class CommitCommand implements Command {
         } else {
             dataContainer.setData(mergedTransaction);
             transactionManager.cleanOldTransactions();
+            System.out.println();
         }
     }
 }

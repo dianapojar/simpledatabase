@@ -33,3 +33,5 @@ to minimize this, I've added a "cache" by adding the data that was searched to t
 **Committing transactions** are made by merging the maps from the oldest transactions to the newest, first by adding the new values,
  deleting the keys from deletedItems and then updating the valueCounts.
 
+In a concurrent environment I would've use instead of the Maps, ConcurrentMaps. Also we would need to manage a set of locks for the map keys -
+each time we would've need to update a value, locks for the affected keys would've need to be acquired before doing any changes.

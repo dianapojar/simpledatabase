@@ -76,11 +76,11 @@ public class Data {
         }
     }
 
-    public List<String> getKeysToBeDeleted() {
+    private List<String> getKeysToBeDeleted() {
         return keysToBeDeleted;
     }
 
-    public Map<String, Integer> getValueCountMap() {
+    private Map<String, Integer> getValueCountMap() {
         return valueCountMap;
     }
 }

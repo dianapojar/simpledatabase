@@ -36,6 +36,7 @@ public class SetCommand implements Command {
         currentData.setValueCount(value, occurrences + 1);
 
         currentData.setData(name, value);
+        System.out.println();
     }
 
     private Integer getOccurrenceCountFromAllTransaction(String value, DataContainer container) {

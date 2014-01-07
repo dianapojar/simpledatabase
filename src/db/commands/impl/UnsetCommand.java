@@ -28,6 +28,7 @@ public class UnsetCommand implements Command {
 
         //delete and mark key as deleted
         currentData.unsetKey(name);
+        System.out.println();
     }
 
     private Integer getOccurrenceCountFromAllTransaction(String value, DataContainer container) {

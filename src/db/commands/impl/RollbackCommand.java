@@ -13,6 +13,7 @@ public class RollbackCommand implements Command {
             System.out.println("NO TRANSACTION");
         } else {
             dataContainer.setData(data);
+            System.out.println();
         }
     }
 }

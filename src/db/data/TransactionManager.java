@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Maintains a list of parent transactions
+ * Maintains the list of transactions
  *
  */
 public class TransactionManager {
